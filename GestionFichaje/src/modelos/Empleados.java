@@ -18,20 +18,19 @@ public class Empleados {
         lista = new ArrayList<>();
     }
 
-    public boolean addEmpleado(Empleado emp) {
-        return lista.add(emp);
-    }
-
+//    public Empleado getEmpleado(int idEmpleado) {
+//        Empleado encontrado = null;
+//        for (int i = 0; i < lista.size(); i++) {
+//            //Comprobamos si el idEmpleado es el que corresponde
+//            if (idEmpleado == lista.get(i).getIdEmpleado()) {
+//                encontrado = lista.get(i);
+//
+//            }
+//        }
+//        return encontrado;
+//    }
     public Empleado getEmpleado(int idEmpleado) {
-        Empleado encontrado = null;
-        for (int i = 0; i < lista.size(); i++) {
-            //Comprobamos si el idEmpleado es el que corresponde
-            if (idEmpleado == lista.get(i).getIdEmpleado()) {
-                encontrado = lista.get(i);
-
-            }
-        }
-        return encontrado;
+        return lista.get(idEmpleado);
     }
 
     ///Metodo Get
@@ -41,4 +40,11 @@ public class Empleados {
 
     }
 
+    public int size() {
+        return lista.size();
+    }
+
+    public boolean addEmpleado(Empleado emp) {
+        return lista.add(emp);
+    }
 }

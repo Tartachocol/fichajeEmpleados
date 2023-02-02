@@ -18,11 +18,11 @@ public class Departamentos {
         lista = new ArrayList();
     }
 
-    void addDepartamento(Departamento dpto) {
+    public void addDepartamento(Departamento dpto) {
         lista.add(dpto);
     }
 
-    boolean removeDepartamento(int codDepartamento) {
+    public boolean removeDepartamento(int codDepartamento) {
         boolean encontrado = false;
         for (int i = 0; i < lista.size(); i++) {
 
@@ -36,7 +36,8 @@ public class Departamentos {
     }
 
     // Devuelve el departamento, si noi lo encuentroa devuelve el departamento nulo.
-    Departamento getDepartamenrto(int codDepartamento) {
+    /*
+    Departamento getDepartamento(int codDepartamento) {
         Departamento dptoEncontrado = null;
 
         for (int i = 0; i < lista.size(); i++) {
@@ -49,5 +50,13 @@ public class Departamentos {
         }
         return dptoEncontrado;
     }
+     */
+    
+    public int size() {
+        return lista.size();
+    }
 
+    public Departamento getDepartamento(int posicion) {
+        return lista.get(posicion);
+    }
 }

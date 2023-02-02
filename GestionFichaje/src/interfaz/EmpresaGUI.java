@@ -5,10 +5,8 @@
 package interfaz;
 
 import bd.GestionBD;
-import java.util.Collection;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 import modelos.Departamento;
 import modelos.Departamentos;
 import modelos.Empleado;
@@ -43,7 +41,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
         listadoEmpleado = new Empleados();
         modeloComboDeptos = new DefaultComboBoxModel();
 
-        conexion = new GestionBD("localhost", "usuario", "usuario", "empresa", 3306);
+        conexion = new GestionBD("localhost", "root", "root", "empresa", 3306);
         listadoEmpleado = conexion.listaEmpleados();
         listadoDeptos = conexion.listaDepartamentos();
         cargarDepartamentos();
@@ -497,6 +495,8 @@ public class EmpresaGUI extends javax.swing.JFrame {
 
     private void jBtnGuardarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarEmpActionPerformed
         Empleado emp = new Empleado();
+        Departamento dpto = new Departamento();
+
         if (!textIdDepto.getText().isEmpty()) {
             emp.setIdEmpleado(Integer.parseInt(textIdEmp.getText()));
 
@@ -506,8 +506,8 @@ public class EmpresaGUI extends javax.swing.JFrame {
         emp.setApellidos(txtApellidoEmpleado.getText());
         emp.setEmail(txtEmailEmpleado.getText());
         emp.setSalario(Float.parseFloat(jSpinnerSalario.getValue().toString()));
-        emp.setDpto((Departamento) jComboBoxDepartamento.getSelectedItem());
-
+        emp.setDpto(listadoDeptos.getDepartamento(jComboBoxDepartamento.getSelectedIndex()));
+        guardarEmpleado(emp);
     }//GEN-LAST:event_jBtnGuardarEmpActionPerformed
 
     /**
@@ -705,12 +705,19 @@ public class EmpresaGUI extends javax.swing.JFrame {
         if (emp.getIdEmpleado() == -1) {
 
             conexion.insertarEmpleado(emp);
-            jListEmpleasdos.setSelectedIndex(listadoEmpleado.size() - 1);
-
+            cargarEmpleado();
+            this.jListEmpleasdos.setSelectedIndex(listadoEmpleado.size() - 1);
+            this.mostrarDepartamento(emp.getIdEmpleado());
         } else {
+
             conexion.modificarEmpleado(emp, emp);
 
+            int posSel = this.jListEmpleasdos.getSelectedIndex();
+            cargarEmpleado();
+
+            this.jListEmpleasdos.setSelectedIndex(posSel);
+
         }
-        cargarEmpleado();
+
     }
 }

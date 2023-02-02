@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelos.Departamento;
+import modelos.Departamentos;
 import modelos.Empleado;
 import modelos.Empleados;
 import modelos.Entrada;
@@ -133,43 +134,6 @@ public class GestionBD {
         return resultadoInsertar;
     }
 
-
-
-    public boolean insertarEmpleado(Empleado emp) {
-        boolean resultadoInsertar = true;
-
-        try {
-            // Conectamos a la BD
-            conectar();
-
-            //Creamos la sentencia
-            Statement sentencia = conexion.createStatement();
-
-            //Preparamos las sencias SQL
-            String sql = String.format("INSERT INTO empleados (nombre,apellidos, departamento, salario, email, codigo)"
-                    + " VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
-                    emp.getNombre(),
-                    emp.getApellidos(),
-                    emp.getDpto().getIdDepartamento(),
-                    emp.getSalario(),
-                    emp.getEmail(),
-                    emp.getCodigo());
-
-            System.out.println("Consulta SQL " + sql);
-
-            resultadoInsertar = sentencia.execute(sql);
-
-            sentencia.close();
-
-            desconectar();
-        } catch (SQLException ex) {
-            System.out.println("Error al insertar el empleado");
-            resultadoInsertar = false;
-        }
-
-        return resultadoInsertar;
-    }
-
     public boolean insertarDepartamento(Departamento dpto) {
         boolean resultadoInsertar = true;
 
@@ -181,7 +145,7 @@ public class GestionBD {
             Statement sentencia = conexion.createStatement();
 
             //Preparamos las sencias SQL
-            String sql = String.format("INSERT INTO departamento (nombre)"
+            String sql = String.format("INSERT INTO departamentos (nombre)"
                     + " VALUES ('%s')",
                     dpto.getNombre());
 
@@ -194,6 +158,40 @@ public class GestionBD {
             desconectar();
         } catch (SQLException ex) {
             System.out.println("Error al insertar el departamento");
+            resultadoInsertar = false;
+        }
+
+        return resultadoInsertar;
+    }
+    
+      public boolean insertarEmpleado(Empleado emp) {
+        boolean resultadoInsertar = true;
+
+        try {
+            // Conectamos a la BD
+            conectar();
+
+            //Creamos la sentencia
+            Statement sentencia = conexion.createStatement();
+
+            //Preparamos las sencias SQL
+            String sql = String.format("INSERT INTO empleados (nombre ,apellidos, departamento, salario, email)"
+                    + " VALUES ('%s', '%s', '%s', '%s', '%s')",
+                    emp.getNombre(),
+                    emp.getApellidos(),
+                    emp.getDpto().getIdDepartamento(),
+                    emp.getSalario(),
+                    emp.getEmail());
+
+            System.out.println("Consulta SQL " + sql);
+
+            resultadoInsertar = sentencia.execute(sql);
+
+            sentencia.close();
+
+            desconectar();
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar el empleado");
             resultadoInsertar = false;
         }
 
@@ -232,16 +230,13 @@ public class GestionBD {
 
     public boolean modificarEmpleado(Empleado emp, Empleado emp_new) {
         boolean resultadoModificar = true;
-
-        try {
-            // Conectamos a la BD
-            conectar();
-
-            //Creamos la sentencia
-            Statement sentencia = conexion.createStatement();
+        // Conectamos a la BD
+        conectar();
+        try ( //Creamos la sentencia
+                 Statement sentencia = conexion.createStatement()) {
 
             //Preparamos las sencias SQL
-            String sql = String.format("UPDATE empleados  SET nombre = '%s', apellidos= '%s', departamento = '%s', salario = '%s', email = '%s' WHERE idEmpleado = '%s'",
+            String sql = String.format("UPDATE empleados  SET nombre = '%s', apellidos = '%s', departamento = '%s', salario = '%s', email = '%s' WHERE idEmpleado = '%s'",
                     emp_new.getNombre(),
                     emp_new.getApellidos(),
                     emp_new.getDpto().getIdDepartamento(),
@@ -267,31 +262,122 @@ public class GestionBD {
 
     public Empleados listaEmpleados() {
 
-        Empleados p = listaEmpleados();
+        Empleados listado = new Empleados();
+        ResultSet rs;
 
         try {
-            // Conectamos a la BD
             conectar();
-
-            //Creamos la sentencia
             Statement sentencia = conexion.createStatement();
+            //preparamos la sentencia SQL
+            String sql = String.format("SELECT * FROM empleados INNER JOIN departamentos ON departamentos.idDepartamento = empleados.departamento");
+            //Ejecutamos la consulta
+            sentencia.execute(sql);
+            //Asignar el resultset de la consulta
+            rs = sentencia.getResultSet();
+            //Recorremos los datos del Resultset
+            while (rs.next()) {
+                listado.addEmpleado(new Empleado(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(6),
+                        new Departamento(rs.getInt(4), rs.getString(8)),
+                        rs.getFloat(5)));
+            }
+            rs.close();
+            sentencia.close();
+            conexion.close();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return listado;
+
+    }
+
+    public boolean borrarDepartamento(Departamento dpto) {
+
+        boolean resultadoBorrar = true;
+        // Conectamos a la BD
+        conectar();
+        try ( //Creamos la sentencia
+                 Statement sentencia = conexion.createStatement();) {
 
             //Preparamos las sencias SQL
-            String sql = String.format("SELECT * FROM empleados");
+            String sql = String.format("DELETE FROM departamentos where idDepartamento = '%s'",
+                    dpto.getIdDepartamento());
 
             System.out.println("Consulta SQL " + sql);
 
-            ResultSet s = sentencia.executeQuery(sql);
+            resultadoBorrar = sentencia.execute(sql);
+
+            sentencia.close();
+
+            desconectar();
+
+        } catch (SQLException ex) {
+            System.out.println("Error al borrar el departamento");
+            resultadoBorrar = false;
+        }
+
+        return resultadoBorrar;
+    }
+
+    public boolean modificarDepartamentos(Departamento dpto, Departamento dpto_new) {
+        boolean resultadoModificar = true;
+        // Conectamos a la BD
+        conectar();
+        try ( //Creamos la sentencia
+                 Statement sentencia = conexion.createStatement()) {
+
+            //Preparamos las sencias SQL
+            String sql = String.format("UPDATE departamentos  SET nombre = '%s' WHERE idDepartamento = '%s'",
+                    dpto_new.getNombre(),
+                    dpto.getIdDepartamento());
+
+            System.out.println("Consulta SQL " + sql);
+
+            resultadoModificar = sentencia.execute(sql);
 
             sentencia.close();
 
             desconectar();
         } catch (SQLException ex) {
-            System.out.println("Error al modificar el empleado");
-
+            System.out.println("Error al modificar el departamentos");
+            resultadoModificar = false;
         }
 
-        return p;
+        return resultadoModificar;
 
     }
+
+    public Departamentos listaDepartamentos() {
+
+        Departamentos listado = new Departamentos();
+        ResultSet rs;
+        conectar();
+        try ( Statement sentencia = conexion.createStatement()) {
+            //preparamos la sentencia SQL
+            String sql = String.format("SELECT * FROM departamentos");
+            //Ejecutamos la consulta
+            sentencia.execute(sql);
+            //Asignar el resultset de la consulta
+            rs = sentencia.getResultSet();
+            //Recorremos los datos del Resultset
+            while (rs.next()) {
+                listado.addDepartamento(new Departamento(
+                        rs.getInt(1),
+                        rs.getString(2)));
+            }
+            rs.close();
+            sentencia.close();
+            conexion.close();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return listado;
+
+    }
+
 }
