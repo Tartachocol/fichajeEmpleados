@@ -15,17 +15,17 @@ import modelos.Entrada;
  */
 public class FichajeGUI extends javax.swing.JFrame {
 
-    
     GestionBD conexion;
     Empleados listadoEmpleado;
     DefaultListModel modeloJlistEmps;
+
     /**
      * Creates new form FichajeGUI
      */
     public FichajeGUI() {
         initComponents();
-              conexion = new GestionBD("localhost", "usuario", "usuario", "fichaje", 3306);
-                      listadoEmpleado = conexion.listaEmpleados();
+        conexion = new GestionBD("localhost", "usuario", "usuario", "fichaje", 3306);
+        listadoEmpleado = conexion.listaEmpleados();
     }
 
     /**
@@ -150,25 +150,25 @@ public class FichajeGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '1');
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-               jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '2');
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '2');
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-               jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '3');
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '3');
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-               jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '4');
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '4');
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptActionPerformed
-       Entrada entra =  new Entrada();
+        Entrada entra = new Entrada();
         cargarEmpleado(jTextFieldPantalla.getText());
-        EmpresaGUI ventana  = new EmpresaGUI();
+        EmpresaGUI ventana = new EmpresaGUI();
         ventana.repaint();
         this.dispose();
     }//GEN-LAST:event_jButtonAceptActionPerformed
@@ -227,15 +227,12 @@ public class FichajeGUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPantalla;
     // End of variables declaration//GEN-END:variables
 
-
-
-
- private void cargarEmpleado(String codigo) {
+    private void cargarEmpleado(String codigo) {
         //limpiqaar el listado
-       Entrada ent = new Entrada();
-      
-       jTextFieldBolean.setText( ""+conexion.insertarFichajeEntrada(new Entrada(Integer.parseInt(codigo))));
+        Entrada ent = new Entrada();
 
- }
- 
+        jTextFieldBolean.setText("" + conexion.insertarFichajeEntrada(new Entrada(Integer.parseInt(codigo))));
+
+    }
+
 }

@@ -36,8 +36,8 @@ public class Empleado {
         this.dpto = dpto;
         this.salario = salario;
     }
-    
-        public Empleado(int idEmpleado, String nombre, String apellidos, String email, Departamento dpto, float salario, int codigo) {
+
+    public Empleado(int idEmpleado, String nombre, String apellidos, String email, Departamento dpto, float salario, int codigo) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -102,6 +102,5 @@ public class Empleado {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    
-   
+
 }

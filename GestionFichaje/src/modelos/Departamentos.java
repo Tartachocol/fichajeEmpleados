@@ -51,7 +51,6 @@ public class Departamentos {
         return dptoEncontrado;
     }
      */
-    
     public int size() {
         return lista.size();
     }

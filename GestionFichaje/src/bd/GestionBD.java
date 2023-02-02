@@ -163,8 +163,8 @@ public class GestionBD {
 
         return resultadoInsertar;
     }
-    
-      public boolean insertarEmpleado(Empleado emp) {
+
+    public boolean insertarEmpleado(Empleado emp) {
         boolean resultadoInsertar = true;
 
         try {

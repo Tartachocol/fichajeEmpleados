@@ -20,17 +20,15 @@ public class GestionFichaje {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        
-           GestionBD gb = new GestionBD("localhost", "usuario", "usuario", "fichaje", 3306);
 
-   //     Departamento dpto = new Departamento(1, "Geestion Servicios");
-       // Empleado emp = new Empleado(3, "Ana", "Sanchez", "ansa@gmail.com", dpto, 999);
+        GestionBD gb = new GestionBD("localhost", "usuario", "usuario", "fichaje", 3306);
+
+        //     Departamento dpto = new Departamento(1, "Geestion Servicios");
+        // Empleado emp = new Empleado(3, "Ana", "Sanchez", "ansa@gmail.com", dpto, 999);
 //        gb.insertarEmpleado(emp);
-         Entrada ent = new Entrada(3);
+        Entrada ent = new Entrada(3);
         gb.insertarFichajeEntrada(ent);
 
-       
     }
-    
+
 }

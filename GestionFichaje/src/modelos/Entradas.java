@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * @author damm
  */
 public class Entradas {
+
     public ArrayList<Entrada> entradas = new ArrayList<>();
 
     public Entradas() {
@@ -19,8 +20,5 @@ public class Entradas {
     public ArrayList<Entrada> getEntradas() {
         return entradas;
     }
-    
-    
- 
-    
+
 }

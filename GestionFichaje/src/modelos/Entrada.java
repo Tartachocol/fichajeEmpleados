@@ -4,7 +4,6 @@
  */
 package modelos;
 
-
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -24,7 +23,6 @@ public class Entrada {
     public Entrada(int codigo) {
         this.codigo = codigo;
         this.fechaEntrada = fechaEntrada;
-      
 
     }
 
@@ -55,6 +53,5 @@ public class Entrada {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    
 
 }
