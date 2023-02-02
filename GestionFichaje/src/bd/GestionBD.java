@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelos.Departamento;
 import modelos.Empleado;
 import modelos.Empleados;
 import modelos.Entrada;
@@ -175,10 +176,11 @@ public class GestionBD {
             Statement sentencia = conexion.createStatement();
 
             //Preparamos las sencias SQL
-            String sql = String.format("INSERT INTO empleados (nombre,apellidos, salario, email, codigo)"
-                    + " VALUES ('%s', '%s', '%s', '%s', '%s', '%s%)",
+            String sql = String.format("INSERT INTO empleados (nombre,apellidos, departamento, salario, email, codigo)"
+                    + " VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
                     emp.getNombre(),
                     emp.getApellidos(),
+                    emp.getDpto().getIdDepartamento(),
                     emp.getSalario(),
                     emp.getEmail(),
                     emp.getCodigo());
@@ -192,6 +194,36 @@ public class GestionBD {
             desconectar();
         } catch (SQLException ex) {
             System.out.println("Error al insertar el empleado");
+            resultadoInsertar = false;
+        }
+
+        return resultadoInsertar;
+    }
+
+    public boolean insertarDepartamento(Departamento dpto) {
+        boolean resultadoInsertar = true;
+
+        try {
+            // Conectamos a la BD
+            conectar();
+
+            //Creamos la sentencia
+            Statement sentencia = conexion.createStatement();
+
+            //Preparamos las sencias SQL
+            String sql = String.format("INSERT INTO departamento (nombre)"
+                    + " VALUES ('%s')",
+                    dpto.getNombre());
+
+            System.out.println("Consulta SQL " + sql);
+
+            resultadoInsertar = sentencia.execute(sql);
+
+            sentencia.close();
+
+            desconectar();
+        } catch (SQLException ex) {
+            System.out.println("Error al insertar el departamento");
             resultadoInsertar = false;
         }
 
@@ -226,5 +258,70 @@ public class GestionBD {
         }
 
         return resultadoBorrar;
+    }
+
+    public boolean modificarEmpleado(Empleado emp, Empleado emp_new) {
+        boolean resultadoModificar = true;
+
+        try {
+            // Conectamos a la BD
+            conectar();
+
+            //Creamos la sentencia
+            Statement sentencia = conexion.createStatement();
+
+            //Preparamos las sencias SQL
+            String sql = String.format("UPDATE empleados  SET nombre = '%s', apellidos= '%s', departamento = '%s', salario = '%s', email = '%s' WHERE idEmpleado = '%s'",
+                    emp_new.getNombre(),
+                    emp_new.getApellidos(),
+                    emp_new.getDpto().getIdDepartamento(),
+                    emp_new.getSalario(),
+                    emp_new.getEmail(),
+                    emp.getIdEmpleado());
+
+            System.out.println("Consulta SQL " + sql);
+
+            resultadoModificar = sentencia.execute(sql);
+
+            sentencia.close();
+
+            desconectar();
+        } catch (SQLException ex) {
+            System.out.println("Error al modificar el empleado");
+            resultadoModificar = false;
+        }
+
+        return resultadoModificar;
+
+    }
+
+    public Empleados listaEmpleados() {
+
+        Empleados p = listaEmpleados();
+
+        try {
+            // Conectamos a la BD
+            conectar();
+
+            //Creamos la sentencia
+            Statement sentencia = conexion.createStatement();
+
+            //Preparamos las sencias SQL
+            String sql = String.format("SELECT * FROM empleados");
+
+            System.out.println("Consulta SQL " + sql);
+
+            ResultSet s = sentencia.executeQuery(sql);
+
+            sentencia.close();
+
+            desconectar();
+        } catch (SQLException ex) {
+            System.out.println("Error al modificar el empleado");
+
+        }
+
+        return p;
+
     }
 }
