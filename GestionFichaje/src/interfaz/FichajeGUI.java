@@ -168,9 +168,9 @@ public class FichajeGUI extends javax.swing.JFrame {
     private void jButtonAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptActionPerformed
        Entrada entra =  new Entrada();
         cargarEmpleado(jTextFieldPantalla.getText());
-      
-       
-       
+        EmpresaGUI ventana  = new EmpresaGUI();
+        ventana.repaint();
+        this.dispose();
     }//GEN-LAST:event_jButtonAceptActionPerformed
 
     /**
@@ -237,4 +237,5 @@ public class FichajeGUI extends javax.swing.JFrame {
        jTextFieldBolean.setText( ""+conexion.insertarFichajeEntrada(new Entrada(Integer.parseInt(codigo))));
 
  }
+ 
 }

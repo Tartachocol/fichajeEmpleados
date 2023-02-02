@@ -133,37 +133,7 @@ public class GestionBD {
         return resultadoInsertar;
     }
 
-    public Empleados listaEmpleados() {
 
-        Empleados listado = new Empleados();
-        ResultSet rs;
-        conectar();
-        try ( Statement sentencia = conexion.createStatement()) {
-            //preparamos la sentencia SQL
-            String sql = String.format("SELECT * FROM empleados INNER JOIN fichajes ON fichajes.codigo = empleados.codigo");
-            //Ejecutamos la consulta
-            sentencia.execute(sql);
-            //Asignar el resultset de la consulta
-            rs = sentencia.getResultSet();
-            //Recorremos los datos del Resultset
-            while (rs.next()) {
-                listado.addEmpleado(new Empleado(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getFloat(5)));
-            }
-            rs.close();
-            sentencia.close();
-            conexion.close();
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return listado;
-
-    }
 
     public boolean insertarEmpleado(Empleado emp) {
         boolean resultadoInsertar = true;
