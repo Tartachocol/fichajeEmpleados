@@ -35,62 +35,84 @@ public class FichajeGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jTextFieldPantalla = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jButtonCancelar = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButton0 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jButtonAcept = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+        setBackground(new java.awt.Color(204, 204, 204));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
-        );
+        jTextFieldPantalla.setEditable(false);
+        jTextFieldPantalla.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextFieldPantalla.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldPantalla.setFocusable(false);
 
-        getContentPane().add(jPanel1);
-
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridLayout(4, 3));
 
-        jButton9.setText("9");
-        jPanel2.add(jButton9);
-
-        jButton8.setText("8");
-        jPanel2.add(jButton8);
-
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton7.setForeground(java.awt.SystemColor.textHighlight);
         jButton7.setText("7");
+        jButton7.setBorder(null);
+        jButton7.setContentAreaFilled(false);
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton7);
 
-        jButton6.setText("6");
-        jPanel2.add(jButton6);
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton8.setForeground(java.awt.SystemColor.textHighlight);
+        jButton8.setText("8");
+        jButton8.setBorder(null);
+        jButton8.setContentAreaFilled(false);
+        jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton8);
 
-        jButton5.setText("5");
-        jPanel2.add(jButton5);
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton9.setForeground(java.awt.SystemColor.textHighlight);
+        jButton9.setText("9");
+        jButton9.setBorder(null);
+        jButton9.setContentAreaFilled(false);
+        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton9.setFocusable(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton9);
 
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton4.setForeground(java.awt.SystemColor.textHighlight);
         jButton4.setText("4");
+        jButton4.setBorder(null);
+        jButton4.setContentAreaFilled(false);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -98,23 +120,41 @@ public class FichajeGUI extends javax.swing.JFrame {
         });
         jPanel2.add(jButton4);
 
-        jButton3.setText("3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton5.setForeground(java.awt.SystemColor.textHighlight);
+        jButton5.setText("5");
+        jButton5.setBorder(null);
+        jButton5.setContentAreaFilled(false);
+        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton5ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3);
+        jPanel2.add(jButton5);
 
-        jButton2.setText("2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton6.setForeground(java.awt.SystemColor.textHighlight);
+        jButton6.setText("6");
+        jButton6.setBorder(null);
+        jButton6.setContentAreaFilled(false);
+        jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton6ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2);
+        jPanel2.add(jButton6);
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton1.setForeground(java.awt.SystemColor.textHighlight);
         jButton1.setText("1");
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -122,21 +162,106 @@ public class FichajeGUI extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1);
 
-        jButtonCancelar.setText("jButton10");
-        jPanel2.add(jButtonCancelar);
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton2.setForeground(java.awt.SystemColor.textHighlight);
+        jButton2.setText("2");
+        jButton2.setBorder(null);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2);
 
-        jButton11.setText("0");
-        jPanel2.add(jButton11);
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton3.setForeground(java.awt.SystemColor.textHighlight);
+        jButton3.setText("3");
+        jButton3.setBorder(null);
+        jButton3.setContentAreaFilled(false);
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton3);
 
-        jButtonAcept.setText("jButton12");
+        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel3.setLayout(new java.awt.GridLayout());
+
+        jButtonCancelar.setBackground(new java.awt.Color(255, 204, 204));
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonCancelar.setForeground(new java.awt.Color(204, 51, 0));
+        jButtonCancelar.setText("CANCELAR");
+        jButtonCancelar.setBorder(null);
+        jButtonCancelar.setContentAreaFilled(false);
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButtonCancelar);
+
+        jPanel2.add(jPanel3);
+
+        jButton0.setBackground(new java.awt.Color(255, 255, 255));
+        jButton0.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton0.setForeground(java.awt.SystemColor.textHighlight);
+        jButton0.setText("0");
+        jButton0.setBorder(null);
+        jButton0.setContentAreaFilled(false);
+        jButton0.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton0ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton0);
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setLayout(new java.awt.GridLayout());
+
+        jButtonAcept.setBackground(new java.awt.Color(204, 255, 204));
+        jButtonAcept.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButtonAcept.setForeground(new java.awt.Color(0, 204, 102));
+        jButtonAcept.setText("ACEPTAR");
+        jButtonAcept.setBorder(null);
+        jButtonAcept.setContentAreaFilled(false);
+        jButtonAcept.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAcept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAceptActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonAcept);
+        jPanel1.add(jButtonAcept);
 
-        getContentPane().add(jPanel2);
+        jPanel2.add(jPanel1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(jTextFieldPantalla))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -159,19 +284,47 @@ public class FichajeGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptActionPerformed
-Entrada entrada = new Entrada(Integer.parseInt(jTextFieldPantalla.getText()));
-                   
+        Entrada entrada = new Entrada(Integer.parseInt(jTextFieldPantalla.getText()));
+
         boolean correcto = conexion.insertarFichajeEntrada(entrada);
-        if (correcto) {
+        if (correcto && jTextFieldPantalla.getText().length()>0) {
             JOptionPane.showMessageDialog(rootPane, "Contraseña correcta");
             this.dispose();
-            InfoEmpleado ventana = new InfoEmpleado(this, true, conexion.obtenerEmpleado(entrada));
+            InfoEmpleado ventana = new InfoEmpleado( conexion.obtenerEmpleado(entrada), conexion.listaDepartamentos().getDepartamento(conexion.obtenerEmpleado(entrada).getDpto().getIdDepartamento()));
             ventana.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(rootPane, "Contraseña incorrecta");
         }
 
     }//GEN-LAST:event_jButtonAceptActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '5');
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '6');
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '7');
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '8');
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '9');
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        jTextFieldPantalla.setText("");
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton0ActionPerformed
+        jTextFieldPantalla.setText(jTextFieldPantalla.getText() + '0');
+    }//GEN-LAST:event_jButton0ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,8 +362,8 @@ Entrada entrada = new Entrada(Integer.parseInt(jTextFieldPantalla.getText()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton0;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -223,6 +376,7 @@ Entrada entrada = new Entrada(Integer.parseInt(jTextFieldPantalla.getText()));
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextFieldPantalla;
     // End of variables declaration//GEN-END:variables
 

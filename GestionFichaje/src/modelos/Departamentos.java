@@ -36,26 +36,23 @@ public class Departamentos {
     }
 
     // Devuelve el departamento, si noi lo encuentroa devuelve el departamento nulo.
-    /*
-    Departamento getDepartamento(int codDepartamento) {
+    public Departamento getDepartamento(int codDepartamento) {
         Departamento dptoEncontrado = null;
 
         for (int i = 0; i < lista.size(); i++) {
 
             if (lista.get(i).getIdDepartamento() == codDepartamento) {
                 dptoEncontrado = lista.get(i);
-
             }
-
         }
         return dptoEncontrado;
     }
-     */
+
     public int size() {
         return lista.size();
     }
 
-    public Departamento getDepartamento(int posicion) {
+    public Departamento getListaDepartamento(int posicion) {
         return lista.get(posicion);
     }
 }

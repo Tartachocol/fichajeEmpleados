@@ -5,8 +5,11 @@
 package interfaz;
 
 import bd.GestionBD;
+import java.awt.Window;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
+import javax.swing.WindowConstants;
 import modelos.Departamento;
 import modelos.Departamentos;
 import modelos.Empleado;
@@ -16,24 +19,21 @@ import modelos.Empleados;
  *
  * @author damm
  */
-public class EmpresaGUI extends javax.swing.JFrame {
+public class EmpresaGUI extends JDialog {
 //Objeto clases
 
-    GestionBD conexion;
-
-    Departamentos listadoDeptos;
-    Empleados listadoEmpleado;
-
-    DefaultListModel modeloJlistDptos;
-    DefaultComboBoxModel modeloComboDeptos;
-
-    DefaultListModel modeloJlistEmps;
+    private GestionBD conexion;
+    private Departamentos listadoDeptos;
+    private Empleados listadoEmpleado;
+    private DefaultListModel modeloJlistDptos;
+    private DefaultComboBoxModel modeloComboDeptos;
+    private DefaultListModel modeloJlistEmps;
 
     /**
      * Creates new form Empresas
      */
-    public EmpresaGUI() {
-
+    public EmpresaGUI(JDialog parent, boolean modal) {
+   super(parent, modal);
         //Iniciamos los datos de los modelos
         modeloJlistDptos = new DefaultListModel();
         listadoDeptos = new Departamentos();
@@ -41,7 +41,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
         listadoEmpleado = new Empleados();
         modeloComboDeptos = new DefaultComboBoxModel();
 
-        conexion = new GestionBD("localhost", "root", "root", "empresa", 3306);
+        conexion = new GestionBD("localhost", "root", "root", "fichaje", 3306);
         listadoEmpleado = conexion.listaEmpleados();
         listadoDeptos = conexion.listaDepartamentos();
         cargarDepartamentos();
@@ -95,7 +95,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListDptos = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanelListDepto1.setBorder(javax.swing.BorderFactory.createTitledBorder("Empleado"));
 
@@ -325,7 +325,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
             .addGroup(jPanelListDeptoLayout.createSequentialGroup()
                 .addGroup(jPanelListDeptoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelListDeptoLayout.createSequentialGroup()
-                        .addContainerGap(182, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtnBorrarTextoDpto)
                         .addGap(18, 18, 18)
                         .addComponent(jBtnNuevoDpo)
@@ -338,7 +338,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
                             .addComponent(textIdDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 256, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelListDeptoLayout.setVerticalGroup(
@@ -352,7 +352,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(textNombreDpto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
                 .addGroup(jPanelListDeptoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnGuardar)
                     .addComponent(jBtnNuevoDpo)
@@ -438,9 +438,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
         //  crear un objeto de partamento
         Departamento depto = new Departamento();
         if (!this.textIdDepto.getText().isBlank()) {
-
             depto.setIdDepartamento(Integer.parseInt(this.textIdDepto.getText()));
-
         }
 
         depto.setNombre(this.textNombreDpto.getText());
@@ -457,16 +455,12 @@ public class EmpresaGUI extends javax.swing.JFrame {
 
         // Asignamos valores de interfaz
         if (!this.textIdDepto.getText().isBlank()) {
-
             depto.setIdDepartamento(Integer.parseInt(this.textIdDepto.getText()));
             borrarDepartamento(depto);
-
             cargarDepartamentos();
             this.mostrarDepartamento(0);
             this.jListEmpleasdos.setSelectedIndex(0);
         }
-
-
     }//GEN-LAST:event_jBtnBorrarTextoDptoActionPerformed
 
     private void jListEmpleasdosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListEmpleasdosValueChanged
@@ -486,7 +480,6 @@ public class EmpresaGUI extends javax.swing.JFrame {
             this.mostrarDepartamento(0);
             this.jListEmpleasdos.setSelectedIndex(0);
         }
-
     }//GEN-LAST:event_jBtnBorrarTextoEmpActionPerformed
 
     private void jBtnNuevoEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnNuevoEmpActionPerformed
@@ -505,47 +498,11 @@ public class EmpresaGUI extends javax.swing.JFrame {
         emp.setApellidos(txtApellidoEmpleado.getText());
         emp.setEmail(txtEmailEmpleado.getText());
         emp.setSalario(Float.parseFloat(jSpinnerSalario.getValue().toString()));
-        emp.setDpto(listadoDeptos.getDepartamento(jComboBoxDepartamento.getSelectedIndex()));
+        emp.setDpto(listadoDeptos.getListaDepartamento(jComboBoxDepartamento.getSelectedIndex()));
         guardarEmpleado(emp);
     }//GEN-LAST:event_jBtnGuardarEmpActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmpresaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmpresaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmpresaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmpresaGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmpresaGUI().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnBorrarTextoDpto;
@@ -595,11 +552,10 @@ public class EmpresaGUI extends javax.swing.JFrame {
         for (int i = 0; i < listadoDeptos.size(); i++) {
             //Añadimos cada departamento al jListDptos
 
-            modeloJlistDptos.addElement(listadoDeptos.getDepartamento(i).getNombre());
-            modeloComboDeptos.addElement(listadoDeptos.getDepartamento(i).getNombre());
+            modeloJlistDptos.addElement(listadoDeptos.getListaDepartamento(i).getNombre());
+            modeloComboDeptos.addElement(listadoDeptos.getListaDepartamento(i).getNombre());
 
         }
-
     }
 
     private void mostrarDepartamento(int i) {
@@ -608,7 +564,7 @@ public class EmpresaGUI extends javax.swing.JFrame {
 
             Departamento deptoSel = new Departamento();
 
-            deptoSel = this.listadoDeptos.getDepartamento(i);
+            deptoSel = this.listadoDeptos.getListaDepartamento(i);
 
             this.textIdDepto.setText(String.valueOf(deptoSel.getIdDepartamento()));
             this.textNombreDpto.setText(deptoSel.getNombre());
@@ -636,7 +592,6 @@ public class EmpresaGUI extends javax.swing.JFrame {
 
             this.jListDptos.setSelectedIndex(posSel);
         }
-
     }
 
     private void borrarDepartamento(Departamento depto) {
@@ -645,12 +600,10 @@ public class EmpresaGUI extends javax.swing.JFrame {
 
             cargarDepartamentos();
         }
-
     }
 
     private void cargarEmpleado() {
         //limpiqaar el listado
-
         modeloJlistEmps.clear();
         listadoEmpleado = conexion.listaEmpleados();
         //actualizar el listado
@@ -661,7 +614,6 @@ public class EmpresaGUI extends javax.swing.JFrame {
             modeloJlistEmps.addElement(listadoEmpleado.getEmpleado(i).getNombre());
 
         }
-
     }
 
     private void limpiarEmpleados() {
@@ -697,7 +649,6 @@ public class EmpresaGUI extends javax.swing.JFrame {
             cargarEmpleado();
 
         }
-
     }
 
     private void guardarEmpleado(Empleado emp) {
@@ -715,8 +666,6 @@ public class EmpresaGUI extends javax.swing.JFrame {
             cargarEmpleado();
 
             this.jListEmpleasdos.setSelectedIndex(posSel);
-
         }
-
     }
 }

@@ -87,13 +87,12 @@ public class GestionBD {
             Statement sentencia = conexion.createStatement();
 
             //Preparamos las sencias SQL
-            String sql = String.format("INSERT INTO fichajes (codigo,fecha_entrada)"
+            String sql = String.format("INSERT INTO fichajes (codigo, fecha_entrada)"
                     + " VALUES ('%s', NOW())",
                     ent.getCodigo());
             System.out.println("Consulta SQL " + sql);
 
             resultadoInsertar = !sentencia.execute(sql);
-            
 
             sentencia.close();
 
@@ -121,16 +120,16 @@ public class GestionBD {
             //Se esta sentencia actualiza la ultima fecha de salida si es nula dependiendo del codigo
             //En la subconsulta se mete un select dentro de un form porque simula que se crea una tabla temporal
             String sql = String.format(
-                    "update fichajes \n"
-                    + "set fecha_salida =now() \n"
-                    + "WHERE codigo = '%s' and fecha_salida is null and fecha_entrada = (select *\n"
-                    + "                                                                  from (select f.fecha_entrada \n"
-                    + "                                                                        from fichajes  f\n"
-                    + "                                                                        where f.codigo = '%s' \n"
-                    + "                                                                        ORDER BY f.fecha_entrada DESC \n"
+                    "update fichajes "
+                    + "set fecha_salida =now() "
+                    + "WHERE codigo = '%s' and fecha_salida is null and fecha_entrada = (select *"
+                    + "                                                                  from (select f.fecha_entrada"
+                    + "                                                                        from fichajes  f"
+                    + "                                                                        where f.codigo = '%s' "
+                    + "                                                                        ORDER BY f.fecha_entrada DESC"
                     + "                                                                        LIMIT 1) AS f );",
-                     ent.getCodigo(),
-                     ent.getCodigo());
+                    ent.getCodigo(),
+                    ent.getCodigo());
             System.out.println("Consulta SQL " + sql);
 
             resultadoInsertar = sentencia.execute(sql);
@@ -298,7 +297,7 @@ public class GestionBD {
             }
             rs.close();
             sentencia.close();
-            conexion.close();
+            desconectar();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -309,38 +308,40 @@ public class GestionBD {
 
     public Empleado obtenerEmpleado(Entrada entrada) {
 
-        Empleado listado = new Empleado();
+        Empleado emp = new Empleado();
         ResultSet rs;
 
         try {
             conectar();
             Statement sentencia = conexion.createStatement();
             //preparamos la sentencia SQL
-            String sql = String.format("SELECT e.* FROM empleados e "
-                    + "                           inner join fichajes ON fichajes.codigo = e.codigo"
-                    + "                                                 WHERE e.codigo = '%s'",
+            String sql = String.format("SELECT * FROM empleados "
+                    + " WHERE codigo = '%s'"
+                    + " LIMIT 1",
                     entrada.getCodigo());
             //Ejecutamos la consulta
             sentencia.execute(sql);
             //Asignar el resultset de la consulta
             rs = sentencia.getResultSet();
             //Recorremos los datos del Resultset
-            listado = new Empleado(
-                    rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(6),
-                    new Departamento(rs.getInt(4), rs.getString(8)),
-                    rs.getFloat(5));
+            while (rs.next()) {
+                emp = new Empleado(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(6),
+                        new Departamento(rs.getInt(4), rs.getString(7)),
+                        rs.getFloat(5));
+            }
 
             rs.close();
             sentencia.close();
-            conexion.close();
+            desconectar();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return listado;
+        return emp;
 
     }
 
@@ -420,7 +421,7 @@ public class GestionBD {
             }
             rs.close();
             sentencia.close();
-            conexion.close();
+            desconectar();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -6,6 +6,7 @@ package interfaz;
 
 import java.util.Random;
 import javax.swing.ImageIcon;
+import modelos.Departamento;
 import modelos.Empleado;
 
 /**
@@ -16,17 +17,24 @@ public class InfoEmpleado extends javax.swing.JDialog {
 
     private ImageIcon imagen;
     private int numero;
-private Empleado emp;
+    private Empleado emp;
+
     /**
      * Creates new form InfoEmpleado
      */
+    public InfoEmpleado(Empleado emp, Departamento dpto) {
 
-    public InfoEmpleado(java.awt.Frame parent, boolean modal, Empleado emp) {
-        super(parent, modal);
         numero = (int) (Math.random() * 22);  // 0 a 21
         imagen = new ImageIcon("imagen/avatar-" + numero + ".jpg");
+        this.emp = emp;
+
         initComponents();
+        if (!dpto.getNombre().equals("Recursos Humanos")) {
+            jButtonAdmin.setVisible(false);
+        }
+
         jLabelImg.setIcon(imagen);
+        jTextFieldNombre.setText(emp.getNombre());
 
     }
 
@@ -41,16 +49,24 @@ private Empleado emp;
 
         jLabelImg = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jButtonClose = new javax.swing.JButton();
+        jButtonAdmin = new javax.swing.JButton();
 
         jLabelImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelImg.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabelImg.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNombre.setEditable(false);
+        jTextFieldNombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jButtonClose.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonClose.setText("Salir");
+
+        jButtonAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonAdmin.setText("Administrar");
+        jButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombreActionPerformed(evt);
+                jButtonAdminActionPerformed(evt);
             }
         });
 
@@ -64,70 +80,46 @@ private Empleado emp;
                         .addGap(179, 179, 179)
                         .addComponent(jLabelImg, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(141, Short.MAX_VALUE))
+                        .addGap(128, 128, 128)
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(137, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jButtonAdmin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonClose)
+                .addGap(68, 68, 68))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelImg, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGap(29, 29, 29)
                 .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonClose)
+                    .addComponent(jButtonAdmin))
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+    private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdminActionPerformed
+    
+        EmpresaGUI ventana = new EmpresaGUI(this, true);
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InfoEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InfoEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InfoEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InfoEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        ventana.setVisible(true);
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InfoEmpleado dialog = new InfoEmpleado(new javax.swing.JFrame(), true, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+
+    }//GEN-LAST:event_jButtonAdminActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAdmin;
+    private javax.swing.JButton jButtonClose;
     private javax.swing.JLabel jLabelImg;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
