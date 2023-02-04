@@ -92,7 +92,7 @@ public class GestionBD {
                     ent.getCodigo());
             System.out.println("Consulta SQL " + sql);
 
-            resultadoInsertar = !sentencia.ex(sql);
+            resultadoInsertar = !sentencia.execute(sql);
             
 
             sentencia.close();
