@@ -55,11 +55,11 @@ public class GestionBD {
             //Indicamos que driver vamos a usar
             Class.forName("com.mysql.cj.jdbc.Driver");
             //Inicializamos la cadena de conexion
-            conexion = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + BD, USUARIO, PASSWORD);
+            conexion = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + BD + "?serverTimezone=UTC", USUARIO, PASSWORD);
 
         } catch (ClassNotFoundException e) {
         } catch (SQLException ex) {
-            Logger.getLogger(GestionBD.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getSQLState());
         }
     }
 
@@ -92,7 +92,8 @@ public class GestionBD {
                     ent.getCodigo());
             System.out.println("Consulta SQL " + sql);
 
-            resultadoInsertar = sentencia.execute(sql);
+            resultadoInsertar = !sentencia.ex(sql);
+            
 
             sentencia.close();
 
@@ -117,8 +118,19 @@ public class GestionBD {
             Statement sentencia = conexion.createStatement();
 
             //Preparamos las sencias SQL
-            String sql = String.format("UPDATE fichajes set fechaSalida = NOW() WHERE fechaSalida = null, and codigo = '%s'"
-                    + ent.getCodigo());
+            //Se esta sentencia actualiza la ultima fecha de salida si es nula dependiendo del codigo
+            //En la subconsulta se mete un select dentro de un form porque simula que se crea una tabla temporal
+            String sql = String.format(
+                    "update fichajes \n"
+                    + "set fecha_salida =now() \n"
+                    + "WHERE codigo = '%s' and fecha_salida is null and fecha_entrada = (select *\n"
+                    + "                                                                  from (select f.fecha_entrada \n"
+                    + "                                                                        from fichajes  f\n"
+                    + "                                                                        where f.codigo = '%s' \n"
+                    + "                                                                        ORDER BY f.fecha_entrada DESC \n"
+                    + "                                                                        LIMIT 1) AS f );",
+                     ent.getCodigo(),
+                     ent.getCodigo());
             System.out.println("Consulta SQL " + sql);
 
             resultadoInsertar = sentencia.execute(sql);
@@ -284,6 +296,43 @@ public class GestionBD {
                         new Departamento(rs.getInt(4), rs.getString(8)),
                         rs.getFloat(5)));
             }
+            rs.close();
+            sentencia.close();
+            conexion.close();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return listado;
+
+    }
+
+    public Empleado obtenerEmpleado(Entrada entrada) {
+
+        Empleado listado = new Empleado();
+        ResultSet rs;
+
+        try {
+            conectar();
+            Statement sentencia = conexion.createStatement();
+            //preparamos la sentencia SQL
+            String sql = String.format("SELECT e.* FROM empleados e "
+                    + "                           inner join fichajes ON fichajes.codigo = e.codigo"
+                    + "                                                 WHERE e.codigo = '%s'",
+                    entrada.getCodigo());
+            //Ejecutamos la consulta
+            sentencia.execute(sql);
+            //Asignar el resultset de la consulta
+            rs = sentencia.getResultSet();
+            //Recorremos los datos del Resultset
+            listado = new Empleado(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(6),
+                    new Departamento(rs.getInt(4), rs.getString(8)),
+                    rs.getFloat(5));
+
             rs.close();
             sentencia.close();
             conexion.close();
