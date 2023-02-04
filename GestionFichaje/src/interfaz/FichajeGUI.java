@@ -5,8 +5,7 @@
 package interfaz;
 
 import bd.GestionBD;
-import javax.swing.DefaultListModel;
-import modelos.Empleados;
+import javax.swing.JOptionPane;
 import modelos.Entrada;
 
 /**
@@ -16,16 +15,15 @@ import modelos.Entrada;
 public class FichajeGUI extends javax.swing.JFrame {
 
     GestionBD conexion;
-    Empleados listadoEmpleado;
-    DefaultListModel modeloJlistEmps;
 
     /**
      * Creates new form FichajeGUI
      */
     public FichajeGUI() {
+
         initComponents();
-        conexion = new GestionBD("localhost", "usuario", "usuario", "fichaje", 3306);
-        listadoEmpleado = conexion.listaEmpleados();
+        conexion = new GestionBD("localhost", "root", "root", "fichaje", 3306);
+        conexion.listaEmpleados();
     }
 
     /**
@@ -39,7 +37,6 @@ public class FichajeGUI extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jTextFieldPantalla = new javax.swing.JTextField();
-        jTextFieldBolean = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -54,28 +51,24 @@ public class FichajeGUI extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jButtonAcept = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldBolean, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(27, 27, 27)
                 .addComponent(jTextFieldPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
-                .addComponent(jTextFieldBolean, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -166,11 +159,18 @@ public class FichajeGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButtonAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptActionPerformed
-        Entrada entra = new Entrada();
-        cargarEmpleado(jTextFieldPantalla.getText());
-        EmpresaGUI ventana = new EmpresaGUI();
-        ventana.repaint();
-        this.dispose();
+Entrada entrada = new Entrada(Integer.parseInt(jTextFieldPantalla.getText()));
+                   
+        boolean correcto = conexion.insertarFichajeEntrada(entrada);
+        if (correcto) {
+            JOptionPane.showMessageDialog(rootPane, "Contraseña correcta");
+            this.dispose();
+            InfoEmpleado ventana = new InfoEmpleado(this, true, conexion.obtenerEmpleado(entrada));
+            ventana.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Contraseña incorrecta");
+        }
+
     }//GEN-LAST:event_jButtonAceptActionPerformed
 
     /**
@@ -223,16 +223,7 @@ public class FichajeGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextFieldBolean;
     private javax.swing.JTextField jTextFieldPantalla;
     // End of variables declaration//GEN-END:variables
-
-    private void cargarEmpleado(String codigo) {
-        //limpiqaar el listado
-        Entrada ent = new Entrada();
-
-        jTextFieldBolean.setText("" + conexion.insertarFichajeEntrada(new Entrada(Integer.parseInt(codigo))));
-
-    }
 
 }

@@ -495,7 +495,6 @@ public class EmpresaGUI extends javax.swing.JFrame {
 
     private void jBtnGuardarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarEmpActionPerformed
         Empleado emp = new Empleado();
-        Departamento dpto = new Departamento();
 
         if (!textIdDepto.getText().isEmpty()) {
             emp.setIdEmpleado(Integer.parseInt(textIdEmp.getText()));

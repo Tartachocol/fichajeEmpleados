@@ -32,7 +32,7 @@ public class Empleados {
     public Empleado getEmpleado(int idEmpleado) {
         return lista.get(idEmpleado);
     }
-
+    
     ///Metodo Get
     public boolean removeEmpleado(int idEmpleado) {
 
